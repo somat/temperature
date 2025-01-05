@@ -1,20 +1,22 @@
+import os
+from datetime import datetime
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Depends, Request
 from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, Float, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime
-import os
 from fastapi.security.api_key import APIKeyHeader
 
 
 # Environment variable configuration
+load_dotenv()
 db_user = os.getenv("DB_USER", "root")
 db_password = os.getenv("DB_PASSWORD", "")
 db_host = os.getenv("DB_HOST", "localhost")
 db_port = os.getenv("DB_PORT", "3306")
 db_name = os.getenv("DB_NAME", "temperature")
-api_key_env = os.getenv("API_KEY", "default_api_key")
+api_key_env = os.getenv("API_KEY", "")
 
 DATABASE_URL = f"mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 
